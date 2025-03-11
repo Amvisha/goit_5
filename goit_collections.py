@@ -75,3 +75,59 @@ for word in words:
     grouped_words[char].append(word)
 
 print(dict(grouped_words))
+
+
+from collections import Counter
+
+def num_counter(filename, n):
+    with open(filename, 'r') as file:
+        data = file.read()
+    data_updated = [int(i) for i in data.split(',')]
+    counter = Counter(data_updated)
+    print(counter)
+    order = counter.most_common(len(counter))
+    return order[:n], order[-n:]
+
+most, least = num_counter('numbers.txt', 5)
+print(f"Most {most} \nLeast {least}")
+
+from collections import namedtuple
+
+cat_info = namedtuple('Cat', ['nickname', 'age', 'owner'])
+bobs_cat = cat_info('Alex', 2, 'Bob')
+
+print(bobs_cat)
+print(bobs_cat.nickname)
+
+from collections import namedtuple
+
+rgb = namedtuple('RGB', ['red', 'green', 'blue'])
+black = rgb(0, 0, 0)
+indigo = rgb(0, 65, 106)
+ocean_wave = rgb(143, 201, 184)
+
+
+print(ocean_wave.red, indigo.blue)
+print(indigo.green - ocean_wave.green)
+
+
+from collections import defaultdict
+
+phone_numbers = ['0509993636', '0679993636', '0959993636', '0969993636', '0509993637', '0639993636', '0509993632', '0339993632']
+
+phone_operators_number = defaultdict(list)
+
+for phone in phone_numbers:
+    if phone.startswith('050') or phone.startswith('095'):
+        phone_operators_number['Vodafone'].append(phone)
+    elif phone.startswith('067') or phone.startswith('096'):
+        phone_operators_number['Kyivstar'].append(phone)
+    elif phone.startswith('063') or phone.startswith('093'):
+        phone_operators_number['Lifecell'].append(phone)
+    else:
+        phone_operators_number['Other_operators'].append(phone)
+
+print(phone_operators_number)
+print(phone_operators_number.get('Kyivstar'))
+print(phone_operators_number.get('Kyivstars'))
+print(phone_operators_number)
